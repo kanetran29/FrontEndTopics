@@ -1,15 +1,58 @@
 <div class="scrollbar-demo">
-    <div class="wrapper left card custom-scrollbar">
-        <ng-container [ngTemplateOutlet]="content"></ng-container>
-    </div>
-    <div class="wrapper right card">
+    <div class="wrapper styled">
+        <div class="title">STYLED</div>
         <div class="container custom-scrollbar">
             <div class="content">
                 <ng-container [ngTemplateOutlet]="content"></ng-container>
             </div>
         </div>
     </div>
-
+    <div class="wrapper margin">
+        <div class="title">MARGIN</div>
+        <div class="container custom-scrollbar">
+            <div class="content">
+                <ng-container [ngTemplateOutlet]="content"></ng-container>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper fade-in">
+        <div class="title">FADE IN</div>
+        <div class="container custom-scrollbar">
+            <div class="content">
+                <ng-container [ngTemplateOutlet]="content"></ng-container>
+            </div>
+        </div>
+        <div class="cover-bar"></div>
+    </div>
+    <div class="wrapper slide-up">
+        <div class="title">SLIDE UP</div>
+        <div class="container custom-scrollbar">
+            <div class="content">
+                <ng-container [ngTemplateOutlet]="content"></ng-container>
+            </div>
+        </div>
+        <div class="cover-bar"></div>
+    </div>
+    <div class="wrapper slide-in">
+        <div class="title">SLIDE IN</div>
+        <div class="container custom-scrollbar">
+            <div class="content">
+                <ng-container [ngTemplateOutlet]="content"></ng-container>
+            </div>
+        </div>
+        <div class="cover-bar"></div>
+    </div>
+    <div class="wrapper progress">
+        <div class="title">PROGRESS</div>
+        <div #scrollViewport
+             class="container custom-scrollbar"
+             (scroll)="onScroll()">
+            <div class="content">
+                <ng-container [ngTemplateOutlet]="content"></ng-container>
+            </div>
+        </div>
+        <div class="cover-bar"></div>
+    </div>
     <ng-template #content>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim pulvinar tincidunt. Cras tempus
         dolor vitae purus porttitor, non auctor ligula venenatis. Cras volutpat dictum justo non ornare. Curabitur

@@ -1,40 +1,45 @@
+* {
+    box-sizing: border-box;
+}
+
 .scrollbar-demo {
-    width: 99dvw;
-    height: 90dvh;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    gap: 24px;
+    padding: 24px;
+    grid-template-areas:
+        "styled margin fade-in"
+        "slide-up slide-in progress";
 
     $trackBG: #e8e8e8;
     $thumbBG: #777;
 
     .wrapper {
-        width: 40%;
-        height: 50vh;
-        padding: 24px;
+        padding: 8px 16px 24px 24px;
         border-radius: 8px;
         overflow: auto;
         font: 400 16px/1.5 Roboto;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+        position: relative;
+        background: #FFF;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
 
-        &.card {
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
-
-            &:hover {
-                box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-            }
+        &:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
         }
 
-        &.left {
+        .title {
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
 
-            &.fade {
-                background-color: rgba(0, 0, 0, 0);
-                transition: background-color .8s;
-
-                &:hover {
-                    background-color: rgba(0, 0, 0, 0.18);
-                }
-            }
+        .container {
+            overflow-y: auto;
 
             &.custom-scrollbar {
 
@@ -46,7 +51,7 @@
 
                 /* Track */
                 &::-webkit-scrollbar-track {
-                    background: $trackBG;
+                    background: transparent;
                 }
 
                 /* Handle */
@@ -58,117 +63,107 @@
                 // Support customized scrollbar on Firefox
                 scrollbar-width: thin;
                 scrollbar-color: $thumbBG $trackBG;
-
-                &--margin {
-
-                    &::-webkit-scrollbar,
-                    &::-webkit-scrollbar-thumb {
-                        width: 26px;
-                        border-radius: 13px;
-                        background-clip: padding-box;
-                        border: 10px solid transparent;
-                    }
-
-                    &::-webkit-scrollbar-thumb {
-                        background-color: $thumbBG;
-                    }
-                }
-
-                &--fade {
-                    &::-webkit-scrollbar {
-                        width: 8px;
-                        height: 8px;
-                    }
-
-                    &::-webkit-scrollbar-thumb {
-                        border-radius: 10px;
-                        background-color: inherit;
-                    }
-                }
             }
         }
 
-        &.right {
-            position: relative;
-            overflow: hidden;
+        &.styled {
+            padding-right: 0;
+        }
 
-            .container {
-                overflow-y: auto;
-                position: absolute;
-                top: 24px;
-                left: 24px;
-                right: 8px;
-                bottom: 24px;
-                padding-right: 16px;
-
-                &.custom-scrollbar {
-
-                    // Support customized scrollbar on Webkit & Blink
-                    &::-webkit-scrollbar {
-                        width: 8px;
-                        height: 8px;
-                    }
-
-                    /* Track */
-                    &::-webkit-scrollbar-track {
-                        background: transparent;
-                    }
-
-                    /* Handle */
-                    &::-webkit-scrollbar-thumb {
-                        background: $thumbBG;
-                        border-radius: 4px;
-                    }
-
-                    // Support customized scrollbar on Firefox
-                    scrollbar-width: thin;
-                    scrollbar-color: $thumbBG $trackBG;
-
-                    &--margin {
-
-                        &::-webkit-scrollbar,
-                        &::-webkit-scrollbar-thumb {
-                            width: 26px;
-                            border-radius: 13px;
-                            background-clip: padding-box;
-                            border: 10px solid transparent;
-                        }
-
-                        &::-webkit-scrollbar-thumb {
-                            background-color: $thumbBG;
-                        }
-                    }
-
-                    &--fade {
-                        &::-webkit-scrollbar {
-                            width: 8px;
-                            height: 8px;
-                        }
-
-                        &::-webkit-scrollbar-thumb {
-                            border-radius: 10px;
-                            background-color: inherit;
-                        }
-                    }
-                }
-            }
-
+        &.fade-in {
             .cover-bar {
                 position: absolute;
-                top: 24px;
-                right: 8px;
-                height: calc(100% - 48px);
-                width: 8px;
                 background: white;
+                top: 0;
+                bottom: 0;
+                width: 8px;
+                right: 16px;
+                opacity: 1;
                 transition: all 0.5s ease-in-out;
+                pointer-events: none;
             }
 
             &:hover {
                 .cover-bar {
                     opacity: 0;
-                    z-index: -1;
+                }
+            }
+        }
+
+        &.slide-up {
+            .cover-bar {
+                position: absolute;
+                background: inherit;
+                top: 24px;
+                height: calc(100% - 24px * 2);
+                width: 8px;
+                right: 16px;
+                opacity: 1;
+                transition: all 0.5s ease-in-out;
+                pointer-events: none;
+            }
+
+            &:hover {
+                .cover-bar {
                     height: 0;
                 }
+            }
+        }
+
+        &.slide-in {
+            padding-right: 0px;
+
+            .cover-bar {
+                position: absolute;
+                background: inherit;
+                top: 24px;
+                height: calc(100% - 24px * 2);
+                width: 8px;
+                right: 0px;
+                opacity: 1;
+                transition: all 0.5s ease-in-out;
+                pointer-events: none;
+            }
+
+
+            .container {
+                padding-right: 16px;
+                margin-right: 0px;
+                transition: all 0.5s ease-in-out;
+            }
+
+            &:hover {
+                .container {
+                    padding-right: 0px;
+                    margin-right: 16px;
+                }
+
+                .cover-bar {
+                    opacity: 0;
+                    right: 16px;
+                }
+            }
+        }
+
+        &.progress {
+            .container {
+                padding-right: 16px;
+                scrollbar-width: none;
+
+                &::-webkit-scrollbar {
+                    width: 0px;
+                    height: 0px;
+                }
+            }
+
+            .cover-bar {
+                position: absolute;
+                background: $thumbBG;
+                height: var(--scroll, 0);
+                top: 40px;
+                width: 4px;
+                right: 16px;
+                pointer-events: none;
             }
         }
     }
