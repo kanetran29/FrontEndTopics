@@ -1,0 +1,170 @@
+* {
+    box-sizing: border-box;
+}
+
+.scrollbar-demo {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    gap: 24px;
+    padding: 24px;
+    grid-template-areas:
+        "styled margin fade-in"
+        "slide-up slide-in progress";
+
+    $trackBG: #e8e8e8;
+    $thumbBG: #777;
+
+    .wrapper {
+        padding: 8px 16px 24px 24px;
+        border-radius: 8px;
+        overflow: auto;
+        font: 400 16px/1.5 Roboto;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+        position: relative;
+        background: #FFF;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        &:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .title {
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .container {
+            overflow-y: auto;
+
+            &.custom-scrollbar {
+
+                // Support customized scrollbar on Webkit & Blink
+                &::-webkit-scrollbar {
+                    width: 8px;
+                    height: 8px;
+                }
+
+                /* Track */
+                &::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                    background: $thumbBG;
+                    border-radius: 4px;
+                }
+
+                // Support customized scrollbar on Firefox
+                scrollbar-width: thin;
+                scrollbar-color: $thumbBG $trackBG;
+            }
+        }
+
+        &.styled {
+            padding-right: 0;
+        }
+
+        &.fade-in {
+            .cover-bar {
+                position: absolute;
+                background: white;
+                top: 0;
+                bottom: 0;
+                width: 8px;
+                right: 16px;
+                opacity: 1;
+                transition: all 0.5s ease-in-out;
+                pointer-events: none;
+            }
+
+            &:hover {
+                .cover-bar {
+                    opacity: 0;
+                }
+            }
+        }
+
+        &.slide-up {
+            .cover-bar {
+                position: absolute;
+                background: inherit;
+                top: 24px;
+                height: calc(100% - 24px * 2);
+                width: 8px;
+                right: 16px;
+                opacity: 1;
+                transition: all 0.5s ease-in-out;
+                pointer-events: none;
+            }
+
+            &:hover {
+                .cover-bar {
+                    height: 0;
+                }
+            }
+        }
+
+        &.slide-in {
+            padding-right: 0px;
+
+            .cover-bar {
+                position: absolute;
+                background: inherit;
+                top: 24px;
+                height: calc(100% - 24px * 2);
+                width: 8px;
+                right: 0px;
+                opacity: 1;
+                transition: all 0.5s ease-in-out;
+                pointer-events: none;
+            }
+
+
+            .container {
+                padding-right: 16px;
+                margin-right: 0px;
+                transition: all 0.5s ease-in-out;
+            }
+
+            &:hover {
+                .container {
+                    padding-right: 0px;
+                    margin-right: 16px;
+                }
+
+                .cover-bar {
+                    opacity: 0;
+                    right: 16px;
+                }
+            }
+        }
+
+        &.progress {
+            .container {
+                padding-right: 16px;
+                scrollbar-width: none;
+
+                &::-webkit-scrollbar {
+                    width: 0px;
+                    height: 0px;
+                }
+            }
+
+            .cover-bar {
+                position: absolute;
+                background: $thumbBG;
+                height: var(--scroll, 0);
+                top: 40px;
+                width: 4px;
+                right: 16px;
+                pointer-events: none;
+            }
+        }
+    }
+}
